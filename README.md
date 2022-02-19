@@ -1,2 +1,2 @@
-# splendor-clothing
+# Splendor Clothing
 Clothing e-commerce website.
