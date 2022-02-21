@@ -5,7 +5,7 @@ import { ReactComponent as Logo } from "../../assets/crown.svg";
 
 import "./header.styles.scss";
 
-import CartIcon from "../cart-icon/cart-icon.component";
+import CartDropdownIcon from "../cart-dropdown-icon/cart-dropdown-icon.component";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 
 import { signOutStart } from "../../features/user/userSlice";
@@ -46,7 +46,7 @@ const Header = () => {
             SIGN UP
           </Link>
         ) : null}
-        <CartIcon />
+        <CartDropdownIcon />
       </div>
       {hidden ? null : <CartDropdown />}
     </div>

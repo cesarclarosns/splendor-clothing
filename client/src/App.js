@@ -9,7 +9,8 @@ import {
 } from "react-router-dom";
 
 // Pages
-import CheckoutPage from "./pages/checkout/checkout-page.component";
+import CartPage from "./pages/cart/cart-page.component";
+import CheckoutPage from "./pages/check-out/check-out-page.component";
 import HomePage from "./pages/home/home-page.component";
 import ShopPage from "./pages/shop/shop-page.component";
 import SignInPage from "./pages/sign-in/sign-in-page.component";
@@ -43,6 +44,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<HomePage />}>
               <Route index="index" element={<Directory />} />
+              <Route path="cart" element={<CartPage />} />
               <Route path="checkout" element={<CheckoutPage />} />
               <Route path="shop" element={<ShopPage />}>
                 <Route

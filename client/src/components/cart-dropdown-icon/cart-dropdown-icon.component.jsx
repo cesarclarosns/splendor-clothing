@@ -6,9 +6,9 @@ import { selectCartItemsCount } from "../../features/cart/cartSelectors";
 
 import { ReactComponent as ShoppingIcon } from "../../assets/shopping-bag.svg";
 
-import "./cart-icon.styles.scss";
+import "./cart-dropdown-icon.styles.scss";
 
-const CartIcon = () => {
+const CartDropdownIcon = () => {
   const itemCount = useSelector(selectCartItemsCount);
   const dispatch = useDispatch();
 
@@ -22,4 +22,4 @@ const CartIcon = () => {
   );
 };
 
-export default CartIcon;
+export default CartDropdownIcon;

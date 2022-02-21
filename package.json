@@ -15,5 +15,13 @@
   "bugs": {
     "url": "https://github.com/cesarclarosns/splendor-clothing/issues"
   },
-  "homepage": "https://github.com/cesarclarosns/splendor-clothing#readme"
+  "homepage": "https://github.com/cesarclarosns/splendor-clothing#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "stripe": "^8.203.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
 }

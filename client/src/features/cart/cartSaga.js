@@ -3,9 +3,12 @@ import {
   cartFetchStart,
   cartFetchSuccess,
   cartFetchFailure,
-  cartSaveCart,
+  cartAddItem,
+  cartRemoveItem,
+  cartClearItem,
 } from "./cartSlice";
-import { selectIsFetched } from "./cartSelectors";
+import { selectIsFetched, selectCartItems } from "./cartSelectors";
+import { selectCartId } from "../user/userSelectors";
 
 import {
   doc,
@@ -50,8 +53,9 @@ function* fetchCartAsync({ payload: { cartId } }) {
   }
 }
 
-function* saveCartAsync({ payload: { cartItems, hasChanged, cartId } }) {
-  if (!hasChanged) return;
+function* saveCartAsync() {
+  const cartItems = yield select(selectCartItems);
+  const cartId = yield select(selectCartId);
 
   try {
     const userCart = cartItems.map((item) => {
@@ -75,7 +79,9 @@ function* onFetchCartStart() {
 }
 
 function* onSaveCartStart() {
-  yield takeLatest(cartSaveCart, saveCartAsync);
+  yield takeLatest(cartAddItem, saveCartAsync);
+  yield takeLatest(cartRemoveItem, saveCartAsync);
+  yield takeLatest(cartClearItem, saveCartAsync);
 }
 
 export function* cartSagas() {

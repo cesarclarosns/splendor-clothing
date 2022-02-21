@@ -1,21 +1,37 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import CheckoutItem from "../../components/checkout-item/checkout-item.component";
+import CartItem from "../../components/cart-item/cart-item.component";
 
 import {
   selectCartItems,
   selectCartTotal,
 } from "../../features/cart/cartSelectors";
 
-import "./checkout-page.styles.scss";
+import "./cart-page.styles.scss";
 
-const CheckoutPage = () => {
+import { Button } from "@chakra-ui/react";
+
+const EmptyCart = () => {
+  return (
+    <div>
+      <h1>Your Cart</h1>
+      <h2>Your cart is empty.</h2>
+      <Button>Continue Shopping</Button>
+    </div>
+  );
+};
+
+const CartPage = () => {
   const cartItems = useSelector(selectCartItems);
   const cartTotal = useSelector(selectCartTotal);
 
-  return (
+  return !cartItems.length ? (
+    <EmptyCart />
+  ) : (
     <div className="checkout-page">
+      <h1>Your cart</h1>
+
       <div className="checkout-header">
         <div className="header-block">
           <span>Product</span>
@@ -34,11 +50,11 @@ const CheckoutPage = () => {
         </div>
       </div>
       {cartItems.map((item) => (
-        <CheckoutItem key={item.id} item={item} />
+        <CartItem key={item.id} item={item} />
       ))}
       <div className="total">TOTAL: ${cartTotal}</div>
     </div>
   );
 };
 
-export default CheckoutPage;
+export default CartPage;
