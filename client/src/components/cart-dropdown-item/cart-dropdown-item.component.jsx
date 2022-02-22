@@ -1,17 +1,25 @@
 import React from "react";
 
-import "./cart-dropdown-item.styles.scss";
+import { Box, HStack, Image, Text } from "@chakra-ui/react";
 
 const CartDropdownItem = ({ item: { imageUrl, price, name, quantity } }) => (
-  <div className="cart-item">
-    <img src={imageUrl} alt="item" />
-    <div className="item-details">
-      <span className="name">{name}</span>
-      <span className="price">
+  <HStack d="flex" w="full" flexDir="row" justifyContent="space-between">
+    <Box>
+      <Image
+        src={imageUrl}
+        boxSize="75px"
+        minW="75px"
+        objectFit="cover"
+        alt="Item"
+      />
+    </Box>
+    <Box d="flex" flexDir="column" textAlign="end">
+      <Text>{name}</Text>
+      <Text>
         {quantity} x ${price}
-      </span>
-    </div>
-  </div>
+      </Text>
+    </Box>
+  </HStack>
 );
 
 export default CartDropdownItem;

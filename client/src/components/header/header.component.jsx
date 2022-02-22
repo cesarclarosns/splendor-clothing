@@ -3,53 +3,98 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 
-import "./header.styles.scss";
-
 import CartDropdownIcon from "../cart-dropdown-icon/cart-dropdown-icon.component";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 
 import { signOutStart } from "../../features/user/userSlice";
 
+import {
+  Button,
+  Container,
+  Flex,
+  Spacer,
+  Box,
+  HStack,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
+} from "@chakra-ui/react";
+
 const Header = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
-  const hidden = useSelector((state) => state.cart.hidden);
-
   const dispatch = useDispatch();
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
-    <div className="header">
-      <Link className="logo-container" to="/">
-        <Logo className="logo" />
-      </Link>
-      <div className="options">
-        <Link className="option" to="/shop">
-          SHOP
-        </Link>
-        <Link className="option" to="/shop">
-          CONTACT
-        </Link>
+    <Flex>
+      <HStack>
+        <Box color="tomato">
+          <Link className="logo-container" to="/">
+            <Logo className="logo" />
+          </Link>
+        </Box>
+      </HStack>
+      <Spacer />
+      <HStack spacing={5}>
+        <Box>
+          <Link className="option" to="/shop">
+            Shop
+          </Link>
+        </Box>
+        <Box>
+          <Link className="option" to="/shop">
+            Contact
+          </Link>
+        </Box>
         {currentUser ? (
-          <Link
-            className="option"
-            to="/"
-            onClick={() => dispatch(signOutStart())}
-          >
-            SIGN OUT
-          </Link>
+          <Box>
+            <Link
+              className="option"
+              to="/"
+              onClick={() => dispatch(signOutStart())}
+            >
+              Sign Out
+            </Link>
+          </Box>
         ) : (
-          <Link className="option" to="/signin">
-            SIGN IN
-          </Link>
+          <Box>
+            <Link className="option" to="/signin">
+              Sign In
+            </Link>
+          </Box>
         )}
         {!currentUser ? (
-          <Link className="option" to="/signup">
-            SIGN UP
-          </Link>
+          <Box>
+            <Link className="option" to="/signup">
+              Sign Up
+            </Link>
+          </Box>
         ) : null}
-        <CartDropdownIcon />
-      </div>
-      {hidden ? null : <CartDropdown />}
-    </div>
+
+        <CartDropdownIcon as="button" onClick={onOpen} />
+
+        <Modal
+          scrollBehavior="inside"
+          isOpen={isOpen}
+          onClose={onClose}
+          isCentered
+        >
+          <ModalOverlay bg="blackAplha.300" backdropFilter="blur(10px)" />
+          <ModalContent>
+            <ModalBody>
+              <CartDropdown />
+            </ModalBody>
+            <ModalFooter>
+              <Button w="full">Go to Bag</Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      </HStack>
+    </Flex>
   );
 };
 

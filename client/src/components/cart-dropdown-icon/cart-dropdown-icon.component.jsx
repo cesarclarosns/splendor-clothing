@@ -1,25 +1,33 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-import { cartToggleHidden } from "../../features/cart/cartSlice";
 import { selectCartItemsCount } from "../../features/cart/cartSelectors";
 
-import { ReactComponent as ShoppingIcon } from "../../assets/shopping-bag.svg";
+import { AiOutlineShopping } from "react-icons/ai";
+import { Box, Icon, Badge, Tooltip } from "@chakra-ui/react";
 
-import "./cart-dropdown-icon.styles.scss";
-
-const CartDropdownIcon = () => {
-  const itemCount = useSelector(selectCartItemsCount);
-  const dispatch = useDispatch();
-
-  console.log("CART ICON");
+const CartDropdownIcon = React.forwardRef((props, ref) => {
+  const itemsCount = useSelector(selectCartItemsCount);
 
   return (
-    <div className="cart-icon" onClick={() => dispatch(cartToggleHidden())}>
-      <ShoppingIcon className="shopping-icon" />
-      <span className="item-count">{itemCount}</span>
-    </div>
+    <Box pos="relative" {...props} ref={ref}>
+      <Badge
+        colorScheme="gray"
+        variant="solid"
+        zIndex={1}
+        pos="absolute"
+        top="-5px"
+        right="-5px"
+      >
+        {itemsCount}
+      </Badge>
+      <Tooltip label="Open your Bag">
+        <span>
+          <Icon as={AiOutlineShopping} boxSize="27px" />
+        </span>
+      </Tooltip>
+    </Box>
   );
-};
+});
 
 export default CartDropdownIcon;

@@ -3,7 +3,6 @@ import { createSlice, createAction } from "@reduxjs/toolkit";
 const initialState = {
   cartItems: [],
   error: false,
-  hidden: true,
   isFetched: false,
 };
 
@@ -11,9 +10,6 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    cartToggleHidden: (state) => {
-      state.hidden = !state.hidden;
-    },
     cartAddItem: {
       reducer(state, action) {
         const existingCartItem = state.cartItems.find(
@@ -60,8 +56,6 @@ const cartSlice = createSlice({
     },
     cartClearCart: (state) => {
       state.cartItems = [];
-
-      state.hidden = true;
       state.isFetched = false;
     },
     cartFetchSuccess: (state, action) => {
@@ -78,7 +72,6 @@ const cartSlice = createSlice({
 export const cartFetchStart = createAction("cart/cartFetchStart");
 
 export const {
-  cartToggleHidden,
   cartAddItem,
   cartRemoveItem,
   cartClearItem,
