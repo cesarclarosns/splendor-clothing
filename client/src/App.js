@@ -27,6 +27,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { checkUserSession } from "./features/user/userSlice";
 import { selectCurrentUser } from "./features/user/userSelectors";
 
+import { Box } from "@chakra-ui/react";
+
 // App
 const App = () => {
   const currentUser = useSelector(selectCurrentUser);
@@ -39,32 +41,34 @@ const App = () => {
   return (
     <ChakraProvider>
       <React.StrictMode>
-        <Router>
-          <Header />
-          <Routes>
-            <Route path="/" element={<HomePage />}>
-              <Route index="index" element={<Directory />} />
-              <Route path="cart" element={<CartPage />} />
-              <Route path="checkout" element={<CheckoutPage />} />
-              <Route path="shop" element={<ShopPage />}>
+        <Box m="20px">
+          <Router>
+            <Header />
+            <Routes>
+              <Route path="/" element={<HomePage />}>
+                <Route index="index" element={<Directory />} />
+                <Route path="cart" element={<CartPage />} />
+                <Route path="checkout" element={<CheckoutPage />} />
+                <Route path="shop" element={<ShopPage />}>
+                  <Route
+                    index="index"
+                    element={<CollectionsOverviewContainer />}
+                  />
+                  <Route path=":id" element={<CollectionPageContainer />} />
+                </Route>
                 <Route
-                  index="index"
-                  element={<CollectionsOverviewContainer />}
+                  path="signin"
+                  element={currentUser ? <Navigate to="/" /> : <SignInPage />}
                 />
-                <Route path=":id" element={<CollectionPageContainer />} />
+                <Route
+                  path="signup"
+                  element={currentUser ? <Navigate to="/" /> : <SignUpPage />}
+                />
+                <Route path="*" element={<NotFound />} />
               </Route>
-              <Route
-                path="signin"
-                element={currentUser ? <Navigate to="/" /> : <SignInPage />}
-              />
-              <Route
-                path="signup"
-                element={currentUser ? <Navigate to="/" /> : <SignUpPage />}
-              />
-              <Route path="*" element={<NotFound />} />
-            </Route>
-          </Routes>
-        </Router>
+            </Routes>
+          </Router>
+        </Box>
       </React.StrictMode>
     </ChakraProvider>
   );

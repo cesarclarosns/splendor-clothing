@@ -5,7 +5,7 @@ import { selectCartItems } from "../../features/cart/cartSelectors";
 
 import CartDropdownItem from "../cart-dropdown-item/cart-dropdown-item.component";
 
-import { HStack, VStack } from "@chakra-ui/react";
+import { VStack } from "@chakra-ui/react";
 
 const CartDropdown = () => {
   const cartItems = useSelector(selectCartItems);
