@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import "./App.css";
-import { ChakraProvider } from "@chakra-ui/react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   BrowserRouter as Router,
   Routes,
@@ -8,28 +7,26 @@ import {
   Navigate,
 } from "react-router-dom";
 
-// Pages
-import CartPage from "./pages/cart/cart-page.component";
-import CheckoutPage from "./pages/check-out/check-out-page.component";
-import HomePage from "./pages/home/home-page.component";
-import ShopPage from "./pages/shop/shop-page.component";
-import SignInPage from "./pages/sign-in/sign-in-page.component";
-import SignUpPage from "./pages/sign-up/sign-up-page.component";
-import Header from "./components/header/header.component";
-import CollectionsOverviewContainer from "./components/collections-overview/collections-overview.container";
-import CollectionPageContainer from "./pages/collection/collection-page.container";
-import NotFound from "./pages/not-found/not-found-page.component";
-
-import Directory from "./components/directory/directory.component";
-
-// RTK
-import { useDispatch, useSelector } from "react-redux";
 import { checkUserSession } from "./features/user/userSlice";
 import { selectCurrentUser } from "./features/user/userSelectors";
 
-import { Box } from "@chakra-ui/react";
+// // Pages
+import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
+import Contact from "./pages/Contact";
+import Home from "./pages/Home";
+import Shop from "./pages/Shop";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import NotFound from "./pages/NotFound";
 
-// App
+import Header from "./components/Header";
+import Directory from "./components/Directory";
+import Collections from "./components/CollectionsOverview";
+import Collection from "./components/Collection";
+
+import { ChakraProvider, Container } from "@chakra-ui/react";
+
 const App = () => {
   const currentUser = useSelector(selectCurrentUser);
   const dispatch = useDispatch();
@@ -40,36 +37,32 @@ const App = () => {
 
   return (
     <ChakraProvider>
-      <React.StrictMode>
-        <Box m="20px">
-          <Router>
-            <Header />
-            <Routes>
-              <Route path="/" element={<HomePage />}>
-                <Route index="index" element={<Directory />} />
-                <Route path="cart" element={<CartPage />} />
-                <Route path="checkout" element={<CheckoutPage />} />
-                <Route path="shop" element={<ShopPage />}>
-                  <Route
-                    index="index"
-                    element={<CollectionsOverviewContainer />}
-                  />
-                  <Route path=":id" element={<CollectionPageContainer />} />
-                </Route>
-                <Route
-                  path="signin"
-                  element={currentUser ? <Navigate to="/" /> : <SignInPage />}
-                />
-                <Route
-                  path="signup"
-                  element={currentUser ? <Navigate to="/" /> : <SignUpPage />}
-                />
-                <Route path="*" element={<NotFound />} />
+      <Router>
+        <Header />
+        <Container maxWidth="container.lg" h="100%" pb="1rem">
+          <Routes>
+            <Route path="/" element={<Home />}>
+              <Route index="index" element={<Directory />} />
+              <Route path="cart" element={<Cart />} />
+              <Route path="checkout" element={<Checkout />} />
+              <Route path="contact" element={<Contact />} />
+              <Route path="shop" element={<Shop />}>
+                <Route index="index" element={<Collections />} />
+                <Route path=":id" element={<Collection />} />
               </Route>
-            </Routes>
-          </Router>
-        </Box>
-      </React.StrictMode>
+              <Route
+                path="signin"
+                element={currentUser ? <Navigate to="/" /> : <SignIn />}
+              />
+              <Route
+                path="signup"
+                element={currentUser ? <Navigate to="/" /> : <SignUp />}
+              />
+              <Route path="*" element={<NotFound />} />
+            </Route>
+          </Routes>
+        </Container>
+      </Router>
     </ChakraProvider>
   );
 };

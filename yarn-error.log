@@ -1,0 +1,61 @@
+Arguments: 
+  /usr/bin/node /home/cesarclaroscg/.npm-global/bin/yarn install
+
+PATH: 
+  /home/cesarclaroscg/.npm-global/bin:/var/lib/flatpak/exports/bin:/home/cesarclaroscg/.pyenv/bin:/usr/local/go/bin:/home/cesarclaroscg/Android/Sdk/platform-tools:/home/cesarclaroscg/Android/Sdk/tools-bin:/home/cesarclaroscg/Android/Sdk/tools:/home/cesarclaroscg/Android/Sdk/emulator:/home/cesarclaroscg/.local/bin:/home/cesarclaroscg/anaconda3/bin:/home/cesarclaroscg/bin:/home/cesarclaroscg/.local/bin:/usr/condabin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/var/lib/snapd/snap/bin:/home/cesarclaroscg/Android/Sdk/emulator:/home/cesarclaroscg/Android/Sdk/tools:/home/cesarclaroscg/Android/Sdk/tools/bin:/home/cesarclaroscg/Android/Sdk/platform-tools
+
+Yarn version: 
+  1.22.17
+
+Node version: 
+  16.14.0
+
+Platform: 
+  linux x64
+
+Trace: 
+  SyntaxError: /home/cesarclaroscg/Documents/vscode/projects/splendor-clothing/package.json: Unexpected token } in JSON at position 739
+      at JSON.parse (<anonymous>)
+      at /home/cesarclaroscg/.npm-global/lib/node_modules/yarn/lib/cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (/home/cesarclaroscg/.npm-global/lib/node_modules/yarn/lib/cli.js:310:30)
+      at /home/cesarclaroscg/.npm-global/lib/node_modules/yarn/lib/cli.js:321:13
+
+npm manifest: 
+  {
+    "name": "splendor-clothing",
+    "version": "1.0.0",
+    "description": "",
+    "main": "server.js",
+    "scripts": {
+      "client": "cd client && npm run start",
+      "server": "nodemon server.js",
+      "start": "node server.js",
+      "build": "cd client && npm run build",
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/cesarclarosns/splendor-clothing.git"
+    },
+    "author": "",
+    "license": "MIT",
+    "bugs": {
+      "url": "https://github.com/cesarclarosns/splendor-clothing/issues"
+    },
+    "homepage": "https://github.com/cesarclarosns/splendor-clothing#readme",
+    "dependencies": {
+      "cors": "^2.8.5",
+      "express": "^4.17.3",
+      "stripe": "^8.203.0",
+    },
+    "devDependencies": {
+      "nodemon": "^2.0.15"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

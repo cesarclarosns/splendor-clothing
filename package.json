@@ -2,8 +2,12 @@
   "name": "splendor-clothing",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
+    "client": "cd client && yarn start",
+    "server": "nodemon server.js",
+    "start": "node server.js",
+    "build": "cd client && yarn build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
