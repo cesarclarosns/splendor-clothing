@@ -5,7 +5,20 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 
-import { Spinner } from "@chakra-ui/react";
+import {
+  Button,
+  Spinner,
+  Flex,
+  Text,
+  VStack,
+  Heading,
+  FormControl,
+  FormLabel,
+  Input,
+  Checkbox,
+  SimpleGrid,
+  Select,
+} from "@chakra-ui/react";
 
 const CheckoutForm = () => {
   const stripe = useStripe();
@@ -13,6 +26,27 @@ const CheckoutForm = () => {
 
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [shippingDetails, setShippingDetails] = useState({
+    contact: "",
+    countryOrRegion: "",
+    firstName: "",
+    lastName: "",
+    adress: "",
+    postalCode: "",
+    city: "",
+    state: "",
+  });
+
+  const {
+    contact,
+    countryOrRegion,
+    firstName,
+    lastName,
+    adress,
+    postalCode,
+    city,
+    state,
+  } = shippingDetails;
 
   useEffect(() => {
     if (!stripe) {
@@ -45,8 +79,15 @@ const CheckoutForm = () => {
     });
   }, [stripe]);
 
+  function handleChange(event) {
+    const { name, value } = event.target;
+    setShippingDetails({ ...shippingDetails, [name]: value });
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Implement something to save the order on Firebase
 
     if (!stripe || !elements) {
       // Stripe.js has not yet loaded.
@@ -60,7 +101,7 @@ const CheckoutForm = () => {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "http://localhost:3000",
+        return_url: "http://localhost:3000/payment/success",
       },
     });
 
@@ -79,15 +120,119 @@ const CheckoutForm = () => {
   };
 
   return (
-    <form id="payment-form" onSubmit={handleSubmit}>
-      <PaymentElement id="payment-element" />
-      <button disabled={isLoading || !stripe || !elements} id="submit">
-        <span id="button-text">{isLoading ? <Spinner /> : "Pay now"}</span>
-      </button>
-      {/* Show any error or success messages */}
-      {message && <div id="payment-message">{message}</div>}
-    </form>
+    <VStack
+      as="form"
+      id="payment-form"
+      onSubmit={handleSubmit}
+      w="full"
+      flexDir="column"
+    >
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <>
+          <PaymentElement id="payment-element" />
+          <Button
+            type="submit"
+            isDisabled={isLoading || !stripe || !elements}
+            w="full"
+          >
+            Pay now
+          </Button>
+        </>
+      )}
+
+      {message && (
+        <Text w="full" textAlign="center">
+          {message}
+        </Text>
+      )}
+      <ShippingDetails handleChange={handleChange} {...shippingDetails} />
+    </VStack>
   );
 };
+
+function ShippingDetails(props) {
+  const {
+    handleChange,
+    contact,
+    countryOrRegion,
+    firstName,
+    lastName,
+    adress,
+    postalCode,
+    city,
+    state,
+  } = props;
+
+  return (
+    <VStack w="full" pt="1rem" pb="1rem">
+      <Heading fontSize="lg" pb="1rem">
+        Shipping details
+      </Heading>
+      <FormControl isRequired w="full">
+        <FormLabel>Email or phone number</FormLabel>
+        <Input name="contact" value={contact} onChange={handleChange}></Input>
+      </FormControl>
+      <FormControl>
+        <Checkbox w="full" defaultChecked>
+          Email me with news and offers
+        </Checkbox>
+      </FormControl>
+      <FormControl isRequired>
+        <FormLabel>Country/region</FormLabel>
+        <Select
+          name="countryOrRegion"
+          value={countryOrRegion}
+          onChange={handleChange}
+        >
+          <option value="MX">Mexico</option>
+          <option value="USA">United States</option>
+        </Select>
+      </FormControl>
+      <SimpleGrid columns={2} w="full" spacing=".5rem">
+        <FormControl isRequired>
+          <FormLabel>First name</FormLabel>
+          <Input
+            name="firstName"
+            value={firstName}
+            onChange={handleChange}
+          ></Input>
+        </FormControl>
+        <FormControl isRequired>
+          <FormLabel>Last name</FormLabel>
+          <Input
+            name="lastName"
+            value={lastName}
+            onChange={handleChange}
+          ></Input>
+        </FormControl>
+      </SimpleGrid>
+      <FormControl isRequired>
+        <FormLabel>Street and house number</FormLabel>
+        <Input name="adress" value={adress} onChange={handleChange}></Input>
+      </FormControl>
+      <FormControl isRequired>
+        <FormLabel>Postal code</FormLabel>
+        <Input
+          name="postalCode"
+          value={postalCode}
+          onChange={handleChange}
+        ></Input>
+      </FormControl>
+
+      <SimpleGrid columns={2} w="full" spacing=".5rem">
+        <FormControl isRequired>
+          <FormLabel>City</FormLabel>
+          <Input name="city" value={city} onChange={handleChange}></Input>
+        </FormControl>
+        <FormControl isRequired>
+          <FormLabel>State</FormLabel>
+          <Input name="state" value={state} onChange={handleChange}></Input>
+        </FormControl>
+      </SimpleGrid>
+    </VStack>
+  );
+}
 
 export default CheckoutForm;

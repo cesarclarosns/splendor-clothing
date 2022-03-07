@@ -1,15 +1,23 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Text } from "@chakra-ui/react";
+import { Link, useNavigate } from "react-router-dom";
+import { Box, Button, Text } from "@chakra-ui/react";
 
-const MenuItem = ({ children, to, currentUser = true, ...rest }) => {
+function MenuItem({ children, to, currentUser = true, ...rest }) {
+  let navigate = useNavigate();
+
   return currentUser ? (
-    <Link to={to}>
-      <Text d="block" {...rest}>
+    <Box>
+      <Button
+        onClick={navigate(`/${to}`)}
+        {...rest}
+        w="180px"
+        h="2rem"
+        borderRadius="0.35rem"
+      >
         {children}
-      </Text>
-    </Link>
+      </Button>
+    </Box>
   ) : null;
-};
+}
 
 export default MenuItem;

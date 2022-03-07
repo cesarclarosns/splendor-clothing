@@ -7,15 +7,17 @@ const MenuItem = React.forwardRef((props, ref) => {
   const { title, imageUrl, linkUrl } = props.collection;
 
   return (
-    <GridItem {...props} ref={ref} pos="relative">
+    <GridItem {...props} ref={ref} pos="relative" role="group">
       <Link to={`/shop/${linkUrl}`}>
         <Image
           h="full"
+          boxSize="full"
           src={imageUrl}
           objectFit="cover"
-          _hover={{
-            filter: "auto",
-            blur: "3px",
+          transition="all .5s"
+          _groupHover={{
+            filter: "hue-rotate(3.142rad)",
+            blur: "2px",
           }}
         />
         <Box
@@ -23,17 +25,18 @@ const MenuItem = React.forwardRef((props, ref) => {
           flexDir="column"
           alignItems="center"
           justifyContent="center"
-          h="90px"
-          w="180px"
+          h="80px"
+          w="200px"
           p="0 25px"
           bgColor="white"
+          opacity={0.6}
           pos="absolute"
           zIndex={1}
           left="50%"
           ml="-90px"
           top="50%"
-          _hover={{
-            opacity: "0.5",
+          _groupHover={{
+            opacity: "0.9",
           }}
         >
           <Heading>{title.toUpperCase()}</Heading>

@@ -12,7 +12,7 @@ const CartDropdownToggle = React.forwardRef((props, ref) => {
 
   return (
     <Box {...rest} ref={ref}>
-      <Tooltip hasArrow label="Open your cart">
+      <Tooltip hasArrow label="Open a preview of your cart">
         <Center pos="relative">
           <Badge
             colorScheme="blackAlpha"

@@ -50,9 +50,10 @@ const SignUp = () => {
         <Text pb="1rem" fontSize="lg" w="full" textAlign="center">
           Sign up with your email
         </Text>
-        <FormControl>
+        <FormControl isRequired>
           <FormLabel>Display name</FormLabel>
           <Input
+            placeholder="First-name last-name"
             type="text"
             name="displayName"
             value={displayName}
@@ -60,33 +61,34 @@ const SignUp = () => {
             required
           />
         </FormControl>
-        <FormControl>
+        <FormControl isRequired w="full">
           <FormLabel>Email</FormLabel>
           <Input
+            placeholder="email@adress.com"
             type="email"
             name="email"
             value={email}
             onChange={handleChange}
-            required
           />
         </FormControl>
         <SimpleGrid w="full" columns={2} spacing="1rem">
           <GridItem w="full">
-            <FormControl>
+            <FormControl isRequired w="full">
               <FormLabel>Password</FormLabel>
               <Input
+                placeholder="********"
                 type="password"
                 name="password"
                 value={password}
                 onChange={handleChange}
-                required
               />
             </FormControl>
           </GridItem>
           <GridItem w="full">
-            <FormControl>
+            <FormControl isRequired>
               <FormLabel>Confirm password</FormLabel>
               <Input
+                placeholder="********"
                 type="password"
                 name="confirmPassword"
                 value={confirmPassword}

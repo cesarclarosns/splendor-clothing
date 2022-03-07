@@ -10,7 +10,7 @@ import {
 import { checkUserSession } from "./features/user/userSlice";
 import { selectCurrentUser } from "./features/user/userSelectors";
 
-// // Pages
+// Pages
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Contact from "./pages/Contact";
@@ -19,15 +19,25 @@ import Shop from "./pages/Shop";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import NotFound from "./pages/NotFound";
+import Payment from "./pages/Payment";
 
 import Header from "./components/Header";
 import Directory from "./components/Directory";
 import Collections from "./components/CollectionsOverview";
 import Collection from "./components/Collection";
+import PaymentFailure from "./components/PaymentFailure";
+import PaymentSuccess from "./components/PaymentSuccess";
 
+// Theme
 import { ChakraProvider, Container } from "@chakra-ui/react";
+import theme from "./theme";
+// import "@fontsource/raleway";
+// import "@fontsource/montserrat";
+// import "@fontsource/roboto";
+// import "@fontsource/roboto-condensed";
+import "@fontsource/inter";
 
-const App = () => {
+function App() {
   const currentUser = useSelector(selectCurrentUser);
   const dispatch = useDispatch();
 
@@ -36,7 +46,7 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <Router>
         <Header />
         <Container maxWidth="container.lg" h="100%" pb="1rem">
@@ -59,12 +69,16 @@ const App = () => {
                 element={currentUser ? <Navigate to="/" /> : <SignUp />}
               />
               <Route path="*" element={<NotFound />} />
+              <Route path="payment" element={<Payment />}>
+                <Route path="failure" element={<PaymentFailure />} />
+                <Route path="success" element={<PaymentSuccess />} />
+              </Route>
             </Route>
           </Routes>
         </Container>
       </Router>
     </ChakraProvider>
   );
-};
+}
 
 export default App;

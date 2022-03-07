@@ -7,7 +7,9 @@
     "client": "cd client && yarn start",
     "server": "nodemon server.js",
     "start": "node server.js",
-    "build": "cd client && yarn build",
+    "build": "cd client && npm run build",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,11 +23,14 @@
   },
   "homepage": "https://github.com/cesarclarosns/splendor-clothing#readme",
   "dependencies": {
+    "body-parser": "^1.19.2",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "stripe": "^8.203.0"
   },
   "devDependencies": {
+    "concurrently": "^7.0.0",
     "nodemon": "^2.0.15"
   }
 }

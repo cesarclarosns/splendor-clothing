@@ -1,15 +1,14 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
 import { selectCartItems } from "../features/cart/cartSelectors";
 
 import CartDropdownItem from "./CartDropdownItem";
 
-import { VStack } from "@chakra-ui/react";
+import { VStack, Link, Center, Text } from "@chakra-ui/react";
 
-const CartDropdown = () => {
-  const cartItems = useSelector(selectCartItems);
-
+const CartDropdown = ({ cartItems, onClose }) => {
   return (
     <VStack>
       {cartItems.length ? (
@@ -17,10 +16,17 @@ const CartDropdown = () => {
           <CartDropdownItem key={cartItem.id} item={cartItem} />
         ))
       ) : (
-        <span className="empty-message">Your bag is empty</span>
+        <Center w="full" h="4rem">
+          Your cart is empty,&nbsp;
+          <Link onClick={onClose}>continue shopping!</Link>
+        </Center>
       )}
     </VStack>
   );
 };
 
-export default CartDropdown;
+const mapStateToProps = createStructuredSelector({
+  cartItems: selectCartItems,
+});
+
+export default connect(mapStateToProps)(CartDropdown);

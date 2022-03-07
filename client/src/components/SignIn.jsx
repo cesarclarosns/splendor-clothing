@@ -44,20 +44,20 @@ const SignIn = () => {
         <Text pb="1rem" fontSize="lg" w="full" textAlign="center">
           Sign in with your email or with Google
         </Text>
-        <FormControl>
+        <FormControl w="full" isRequired>
           <FormLabel>Email</FormLabel>
           <Input
-            isRequired
+            placeholder="email@adress.com "
             type="email"
             name="email"
             value={email}
             onChange={handleChange}
           ></Input>
         </FormControl>
-        <FormControl>
+        <FormControl w="full" isRequired>
           <FormLabel>Password</FormLabel>
           <Input
-            isRequired
+            placeholder="********"
             type="password"
             name="password"
             value={password}

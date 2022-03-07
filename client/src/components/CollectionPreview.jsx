@@ -29,6 +29,7 @@ const CollectionPreview = (props) => {
         gridCWRef.current = newGridCW;
       }
 
+      // Update gridCWRef.current on every "resize" event
       if (newGridCW < gridCWRef.current) {
         gridCWRef.current = newGridCW;
       } else {

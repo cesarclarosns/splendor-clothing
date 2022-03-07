@@ -22,12 +22,15 @@ import {
   DrawerBody,
   Flex,
   HStack,
+  Heading,
   Modal,
   ModalOverlay,
   ModalContent,
   ModalBody,
   ModalFooter,
   useDisclosure,
+  Center,
+  VStack,
 } from "@chakra-ui/react";
 
 function Header() {
@@ -44,7 +47,7 @@ function Header() {
 
 function NavBarContainer({ children, ...props }) {
   return (
-    <Container maxWidth="container.lg" pb="2rem" pt="2rem" mb="2rem">
+    <Container maxWidth="container.lg" pb="1rem" pt="2rem" mb="1rem">
       <Flex
         as="nav"
         justify="space-between"
@@ -74,7 +77,7 @@ const CartDropdownMenu = () => {
         <ModalOverlay bg="blackAplha.300" backdropFilter="blur(10px)" />
         <ModalContent w="350px">
           <ModalBody>
-            <CartDropdown pt="20px" />
+            <CartDropdown pt="20px" onClose={onClose} />
           </ModalBody>
           <ModalFooter>
             <Button
@@ -97,6 +100,7 @@ const HeaderMenu = () => {
   const dispatch = useDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const currentUser = useSelector(selectCurrentUser);
+  let navigate = useNavigate();
 
   return (
     <>
@@ -114,42 +118,80 @@ const HeaderMenu = () => {
         tranisition="all 0.5s"
       >
         <DrawerOverlay tranisition="all 0.5s" />
-        <DrawerContent tranisition="all 0.5s">
-          <DrawerHeader>Splendor Clothing</DrawerHeader>
-          <DrawerBody>
-            <HeaderMenuItem to="/" onClick={onClose}>
-              Home
-            </HeaderMenuItem>
-            <HeaderMenuItem to="/shop" onClick={onClose}>
-              Shop
-            </HeaderMenuItem>
-            <HeaderMenuItem to="/contact" onClick={onClose}>
-              Contact
-            </HeaderMenuItem>
-            <HeaderMenuItem
-              to="/signin"
-              onClick={onClose}
-              currentUser={!currentUser}
-            >
-              Sign in
-            </HeaderMenuItem>
-            <HeaderMenuItem
-              to="/signup"
-              onClick={onClose}
-              currentUser={!currentUser}
-            >
-              Sign up
-            </HeaderMenuItem>
-            <HeaderMenuItem
-              to="/"
-              onClick={() => {
-                dispatch(signOutStart());
-                onClose();
-              }}
-              currentUser={currentUser}
-            >
-              Sign out
-            </HeaderMenuItem>
+        <DrawerContent tranisition="all 0.5s" h="100%" w="100%">
+          <DrawerBody w="full">
+            <Flex w="100%" h="100%">
+              <VStack w="full" m="auto">
+                <Logo />
+                <Heading w="full" textAlign="center">
+                  Splendor Clothing
+                </Heading>
+                <Button
+                  w="full"
+                  onClick={() => {
+                    navigate("/");
+                    onClose();
+                  }}
+                >
+                  Home
+                </Button>
+                <Button
+                  w="full"
+                  onClick={() => {
+                    navigate("/shop");
+                    onClose();
+                  }}
+                >
+                  Shop
+                </Button>
+                <Button
+                  w="full"
+                  onClick={() => {
+                    navigate("/cart");
+                    onClose();
+                  }}
+                >
+                  Cart
+                </Button>
+                {!currentUser && (
+                  <>
+                    <Button
+                      w="full"
+                      onClick={() => {
+                        navigate("/signin");
+                        onClose();
+                      }}
+                      currentUser={!currentUser}
+                    >
+                      Sign in
+                    </Button>
+                    <Button
+                      w="full"
+                      onClick={() => {
+                        navigate("/signup");
+                        onClose();
+                      }}
+                      currentUser={!currentUser}
+                    >
+                      Sign up
+                    </Button>
+                  </>
+                )}
+
+                {currentUser && (
+                  <Button
+                    w="full"
+                    onClick={() => {
+                      dispatch(signOutStart());
+                      navigate("/");
+                      onClose();
+                    }}
+                  >
+                    Sign out
+                  </Button>
+                )}
+              </VStack>
+            </Flex>
           </DrawerBody>
         </DrawerContent>
       </Drawer>

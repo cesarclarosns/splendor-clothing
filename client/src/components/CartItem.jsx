@@ -9,79 +9,114 @@ import {
 import { Close } from "@styled-icons/evil";
 
 import {
-  SimpleGrid,
-  GridItem,
+  Flex,
   Image,
   Box,
   HStack,
   VStack,
-  Flex,
   Center,
+  useToast,
   Text,
+  Heading,
+  GridItem,
+  SimpleGrid,
 } from "@chakra-ui/react";
 
-const CartItem = ({ item }) => {
+const CartItem = ({ item, display }) => {
   const { name, imageUrl, price, quantity } = item;
   const dispatch = useDispatch();
+  const toast = useToast();
+
+  function cartToast(description, status) {
+    return toast({
+      description: description,
+      status: status,
+      duration: 2500,
+    });
+  }
 
   return (
-    <SimpleGrid columns={3} w="full">
-      <Center>
-        <Box w="8rem" position="relative" role="group">
-          <Image
-            src={imageUrl}
-            objectFit="cover"
-            alt="item"
-            w="full"
-            _groupHover={{
-              filter: "hue-rotate(90deg)",
-            }}
-          />
-          <Box
-            bgColor="gray.100"
-            opacity={0}
-            as="button"
-            onClick={() => dispatch(cartClearItem(item))}
-            position="absolute"
-            top="50%"
-            left="50%"
-            w="2.5rem"
-            h="2rem"
-            transform="translate(-50%, -50%)"
-            _groupHover={{
-              opacity: 0.7,
-              filter: "drop-shadow(0 0 0.75rem black)",
-            }}
-          >
-            <Close size="1.7rem"></Close>
+    <>
+      <GridItem w="full">
+        <Flex flexDir="row">
+          <Box position="relative" role="group">
+            <Image
+              src={imageUrl}
+              objectFit="cover"
+              alt="item"
+              boxSize="4.8rem"
+              minW="4.8rem"
+              _groupHover={{
+                filter: "hue-rotate(90deg)",
+              }}
+            />
+            <Box
+              d={display}
+              bgColor="gray.100"
+              opacity={0}
+              as="button"
+              onClick={() => {
+                dispatch(cartClearItem(item));
+                cartToast("Item cleared from your cart!", "error");
+              }}
+              position="absolute"
+              top="50%"
+              left="50%"
+              w="2.5rem"
+              h="2rem"
+              transform="translate(-50%, -50%)"
+              _groupHover={{
+                opacity: 0.7,
+                filter: "drop-shadow(0 0 0.75rem black)",
+              }}
+            >
+              <Close size="1.7rem"></Close>
+            </Box>
           </Box>
-        </Box>
-      </Center>
-      <Center>
-        <VStack w="full">
-          <Center>{name}</Center>
-          <Center>
-            <HStack>
-              <Center
-                as="button"
-                onClick={() => dispatch(cartRemoveItem(item))}
-              >
-                &#10094;
-              </Center>
-              <Center>{quantity}</Center>
-              <Center
-                as="button"
-                onClick={() => dispatch(cartAddItem({ ...item }))}
-              >
-                &#10095;
-              </Center>
-            </HStack>
-          </Center>
-        </VStack>
-      </Center>
-
-      <Center>${price}</Center>
-    </SimpleGrid>
+          <Flex flexDir="column" h="100%" w="full" m="auto" ml="1rem">
+            <Text w="full" textAlign="left">
+              {name}
+            </Text>
+            <Text w="full" textAlign="left">
+              Size: M
+            </Text>
+          </Flex>
+        </Flex>
+      </GridItem>
+      <GridItem>
+        <Flex
+          flexDir="column"
+          h="100%"
+          w="100%"
+          justifyContent="center"
+          alignItems="flex-end"
+        >
+          <Text>
+            {quantity} x ${price}
+          </Text>
+          <HStack d={display}>
+            <Center
+              as="button"
+              onClick={() => {
+                dispatch(cartRemoveItem(item));
+                cartToast("Item removed from your cart!", "warning");
+              }}
+            >
+              &#10094;
+            </Center>
+            <Center
+              as="button"
+              onClick={() => {
+                dispatch(cartAddItem({ ...item }));
+                cartToast("Item added to your cart", "success");
+              }}
+            >
+              &#10095;
+            </Center>
+          </HStack>
+        </Flex>
+      </GridItem>
+    </>
   );
 };
 

@@ -14,8 +14,8 @@ const CartDropdownItem = ({ item: { imageUrl, price, name, quantity } }) => (
       <Box>
         <Image
           src={imageUrl}
-          boxSize="75px"
-          minW="75px"
+          boxSize="4.5rem"
+          minW="4.5rem"
           objectFit="cover"
           alt="Item"
         />

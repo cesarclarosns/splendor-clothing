@@ -3,12 +3,13 @@ import { useDispatch } from "react-redux";
 
 import { cartAddItem } from "../features/cart/cartSlice";
 
-import { Box, Flex, GridItem, Image } from "@chakra-ui/react";
+import { Box, Flex, GridItem, Image, useToast } from "@chakra-ui/react";
 import { Add } from "@styled-icons/ionicons-solid";
 
 const CollectionItem = ({ item, collectionId }) => {
   const { imageUrl, name, price } = item;
 
+  const toast = useToast();
   const dispatch = useDispatch();
 
   return (
@@ -31,6 +32,12 @@ const CollectionItem = ({ item, collectionId }) => {
             as="button"
             onClick={() => {
               dispatch(cartAddItem({ ...item, collectionId }));
+              toast({
+                description: "Item added to your cart!",
+                status: "success",
+                duration: 2500,
+                isClosable: true,
+              });
             }}
             position="absolute"
             top="50%"

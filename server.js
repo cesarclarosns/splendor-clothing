@@ -1,22 +1,40 @@
 const express = require("express");
 const cors = require("cors");
-const app = express();
-app.use(cors());
+const bodyParser = require("body-parser");
+const path = require("path");
+const enforce = require("express-sslify");
+
+if (process.env.NODE_ENV !== "production") require("dotenv").config();
 
 // Payments with Stripe
-const stripe = require("stripe")(
-  "sk_test_51KV5ZnJw2d9D8cf62ARMKnKu0IWYDdp7f3tT50qeYoBqYTa1PA0vXx0LVb9hDkCZaaLmFVpEPiGdvvidVkvo4oqB00t4EqIhlD"
-);
+const stripe = require("stripe")(proces.env.STRIPE_SECRET_KEY);
 
-app.use(express.static("public"));
-app.use(express.json());
+const app = express();
+const port = process.env.PORT || 5000;
 
-app.get("/", (req, res) => {
-  res.send("Hello world!");
+app.use(bodyParser.json()); // Process any request and convert it to a JSON format
+app.use(bodyParser.urlencoded({ extended: true })); // Makes urls strict
+app.use(enforce.HTTPS({ trustProtoHeader: true }));
+app.use(cors()); // Allow cross origin requests
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "client/build")));
+
+  app.get("*", function (req, res) {
+    res.sendFile(path.join(__dirname, "client/build", "index.html"));
+  });
+}
+
+app.listen(port, (error) => {
+  if (error) throw error;
+  console.log("Server running on port " + port);
+});
+
+app.get("/service-worker.js", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "..", "build", "service-worker.js"));
 });
 
 app.post("/create-payment-intent", async (req, res) => {
-  console.log("req.body: ", req.body);
   const { amount } = req.body;
 
   // Create a PaymentIntent with the order amount and currency
@@ -28,9 +46,9 @@ app.post("/create-payment-intent", async (req, res) => {
     },
   });
 
+  console.log("Creating a new Payment Intent");
+
   res.send({
     clientSecret: paymentIntent.client_secret,
   });
 });
-
-app.listen(4242, () => console.log("Node server listening on port 4242!"));
