@@ -14,19 +14,10 @@ import CheckoutForm from "../components/CheckoutForm";
 import { ListItems } from "../pages/Cart";
 import {
   Button,
-  Box,
-  Checkbox,
-  Flex,
   SimpleGrid,
-  Grid,
-  GridItem,
   Spinner,
   VStack,
   Heading,
-  FormControl,
-  Input,
-  FormLabel,
-  Select,
   Center,
   Text,
   useClipboard,
@@ -47,14 +38,14 @@ const CheckoutPage = () => {
   const cartTotal = useSelector(selectCartTotal);
 
   const [clientSecret, setClientSecret] = useState("");
-  const [creditCardNum, setCreditCardNum] = useState(4242424242424242);
-  const { hasCopied, onCopy } = useClipboard(creditCardNum);
+  const [creditCardNum] = useState(4242424242424242);
+  const { onCopy } = useClipboard(creditCardNum);
   const toast = useToast();
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
     axios({
-      url: "http://localhost:4242/create-payment-intent",
+      url: "/create-payment-intent",
       method: "post",
       data: JSON.stringify({ amount: cartTotal * 100 }),
       headers: { "Content-Type": "application/json" },

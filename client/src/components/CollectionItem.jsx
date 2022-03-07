@@ -6,7 +6,7 @@ import { cartAddItem } from "../features/cart/cartSlice";
 import { Box, Flex, GridItem, Image, useToast } from "@chakra-ui/react";
 import { Add } from "@styled-icons/ionicons-solid";
 
-const CollectionItem = ({ item, collectionId }) => {
+function CollectionItem({ item, collectionId }) {
   const { imageUrl, name, price } = item;
 
   const toast = useToast();
@@ -60,6 +60,6 @@ const CollectionItem = ({ item, collectionId }) => {
       </Box>
     </GridItem>
   );
-};
+}
 
 export default CollectionItem;

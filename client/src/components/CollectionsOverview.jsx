@@ -10,7 +10,7 @@ import {
 import { Spinner } from "@chakra-ui/react";
 import CollectionPreview from "./CollectionPreview";
 
-const CollectionsOverview = ({ collections, isFetched }) => {
+function CollectionsOverview({ collections, isFetched }) {
   return (
     <div>
       {isFetched ? (
@@ -22,7 +22,7 @@ const CollectionsOverview = ({ collections, isFetched }) => {
       )}
     </div>
   );
-};
+}
 
 const mapStateToProps = createStructuredSelector({
   collections: selectCollectionsForPreview,

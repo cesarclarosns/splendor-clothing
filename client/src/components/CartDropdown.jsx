@@ -6,9 +6,9 @@ import { selectCartItems } from "../features/cart/cartSelectors";
 
 import CartDropdownItem from "./CartDropdownItem";
 
-import { VStack, Link, Center, Text } from "@chakra-ui/react";
+import { VStack, Link, Center } from "@chakra-ui/react";
 
-const CartDropdown = ({ cartItems, onClose }) => {
+function CartDropdown({ cartItems, onClose }) {
   return (
     <VStack>
       {cartItems.length ? (
@@ -23,7 +23,7 @@ const CartDropdown = ({ cartItems, onClose }) => {
       )}
     </VStack>
   );
-};
+}
 
 const mapStateToProps = createStructuredSelector({
   cartItems: selectCartItems,

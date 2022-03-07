@@ -8,7 +8,6 @@ import {
 import {
   Button,
   Spinner,
-  Flex,
   Text,
   VStack,
   Heading,
@@ -37,16 +36,16 @@ const CheckoutForm = () => {
     state: "",
   });
 
-  const {
-    contact,
-    countryOrRegion,
-    firstName,
-    lastName,
-    adress,
-    postalCode,
-    city,
-    state,
-  } = shippingDetails;
+  // const {
+  //   contact,
+  //   countryOrRegion,
+  //   firstName,
+  //   lastName,
+  //   adress,
+  //   postalCode,
+  //   city,
+  //   state,
+  // } = shippingDetails;
 
   useEffect(() => {
     if (!stripe) {

@@ -13,13 +13,10 @@ import {
   Image,
   Box,
   HStack,
-  VStack,
   Center,
   useToast,
   Text,
-  Heading,
   GridItem,
-  SimpleGrid,
 } from "@chakra-ui/react";
 
 const CartItem = ({ item, display }) => {

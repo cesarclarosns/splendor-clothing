@@ -89,14 +89,4 @@ const SignIn = () => {
   );
 };
 
-const styles = {
-  flex: {
-    container: {},
-    child: {},
-  },
-  button: {
-    google: {},
-  },
-};
-
 export default SignIn;

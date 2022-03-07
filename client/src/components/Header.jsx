@@ -8,7 +8,6 @@ import { signOutStart } from "../features/user/userSlice";
 import CartDropdownToggle from "./CartDropdownToggle";
 import CartDropdown from "./CartDropdown";
 import HeaderMenuToggle from "./HeaderMenuToggle";
-import HeaderMenuItem from "./HeaderMenuItem";
 
 import { ReactComponent as Logo } from "../assets/crown.svg";
 
@@ -18,7 +17,6 @@ import {
   Drawer,
   DrawerOverlay,
   DrawerContent,
-  DrawerHeader,
   DrawerBody,
   Flex,
   HStack,
@@ -29,7 +27,6 @@ import {
   ModalBody,
   ModalFooter,
   useDisclosure,
-  Center,
   VStack,
 } from "@chakra-ui/react";
 

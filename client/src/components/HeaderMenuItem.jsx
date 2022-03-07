@@ -1,6 +1,6 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Box, Button, Text } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
+import { Box, Button } from "@chakra-ui/react";
 
 function MenuItem({ children, to, currentUser = true, ...rest }) {
   let navigate = useNavigate();

@@ -2,19 +2,17 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const path = require("path");
-const enforce = require("express-sslify");
 
 if (process.env.NODE_ENV !== "production") require("dotenv").config();
 
 // Payments with Stripe
-const stripe = require("stripe")(proces.env.STRIPE_SECRET_KEY);
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(bodyParser.json()); // Process any request and convert it to a JSON format
 app.use(bodyParser.urlencoded({ extended: true })); // Makes urls strict
-app.use(enforce.HTTPS({ trustProtoHeader: true }));
 app.use(cors()); // Allow cross origin requests
 
 if (process.env.NODE_ENV === "production") {

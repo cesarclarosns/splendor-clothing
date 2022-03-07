@@ -13,7 +13,6 @@ import { selectCurrentUser } from "./features/user/userSelectors";
 // Pages
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
-import Contact from "./pages/Contact";
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
 import SignIn from "./pages/SignIn";
@@ -31,10 +30,6 @@ import PaymentSuccess from "./components/PaymentSuccess";
 // Theme
 import { ChakraProvider, Container } from "@chakra-ui/react";
 import theme from "./theme";
-// import "@fontsource/raleway";
-// import "@fontsource/montserrat";
-// import "@fontsource/roboto";
-// import "@fontsource/roboto-condensed";
 import "@fontsource/inter";
 
 function App() {
@@ -55,7 +50,6 @@ function App() {
               <Route index="index" element={<Directory />} />
               <Route path="cart" element={<Cart />} />
               <Route path="checkout" element={<Checkout />} />
-              <Route path="contact" element={<Contact />} />
               <Route path="shop" element={<Shop />}>
                 <Route index="index" element={<Collections />} />
                 <Route path=":id" element={<Collection />} />

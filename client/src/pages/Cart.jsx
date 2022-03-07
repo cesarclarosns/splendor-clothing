@@ -10,14 +10,12 @@ import {
 
 import CartItem from "../components/CartItem";
 import {
-  Box,
   Center,
   Heading,
   Flex,
   VStack,
   SimpleGrid,
   Grid,
-  HStack,
   Text,
   Button,
   GridItem,
