@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  splendor-clothing:
+    container_name: splendor-clothing
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    environment:
+      - NODE_ENV=production
+      - STRIPE_SECRET_KEY=sk_test_51KV5ZnJw2d9D8cf62ARMKnKu0IWYDdp7f3tT50qeYoBqYTa1PA0vXx0LVb9hDkCZaaLmFVpEPiGdvvidVkvo4oqB00t4EqIhlD

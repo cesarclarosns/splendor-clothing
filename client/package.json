@@ -2,7 +2,7 @@
   "name": "splendor-clothing",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:5000",
+  "proxy": "https://splendorclothing.cesarclarosns.com",
   "dependencies": {
     "@chakra-ui/icons": "1.1.7",
     "@chakra-ui/react": "1.8.3",

@@ -9,7 +9,7 @@ if (process.env.NODE_ENV !== "production") require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json()); // Process any request and convert it to a JSON format
 app.use(bodyParser.urlencoded({ extended: true })); // Makes urls strict
@@ -21,18 +21,13 @@ if (process.env.NODE_ENV === "production") {
   app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "client/build", "index.html"));
   });
+
+  app.get("/service-worker.js", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "..", "build", "service-worker.js"));
+  });
 }
 
-app.listen(port, (error) => {
-  if (error) throw error;
-  console.log("Server running on port " + port);
-});
-
-app.get("/service-worker.js", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "..", "build", "service-worker.js"));
-});
-
-app.post("/create-payment-intent", async (req, res) => {
+app.post("/api/create-payment-intent", async (req, res) => {
   const { amount } = req.body;
 
   // Create a PaymentIntent with the order amount and currency
@@ -49,4 +44,9 @@ app.post("/create-payment-intent", async (req, res) => {
   res.send({
     clientSecret: paymentIntent.client_secret,
   });
+});
+
+app.listen(port, (error) => {
+  if (error) throw error;
+  console.log("Server running on port " + port);
 });

@@ -45,7 +45,7 @@ const CheckoutPage = () => {
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
     axios({
-      url: "/create-payment-intent",
+      url: "/api/create-payment-intent",
       method: "post",
       data: JSON.stringify({ amount: cartTotal * 100 }),
       headers: { "Content-Type": "application/json" },
