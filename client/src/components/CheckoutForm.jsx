@@ -101,7 +101,7 @@ const CheckoutForm = () => {
       confirmParams: {
         // Make sure to change this to your payment completion page
         return_url:
-          "https://splendorclothing.cesarclarosns.com/payment/success",
+          "http://localhost:3000/payment/success",
       },
     });
 
